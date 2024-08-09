@@ -120,7 +120,9 @@ class soil(HydroModule):
 
         self.var.SoilDepth1a = self.var.defsoil('SoilDepth1', 'SoilDepth1Forest')
         self.var.SoilDepth1b = self.var.defsoil('SoilDepth2', 'SoilDepth2Forest')
+        self.var.SoilDepth1b=(self.var.SoilDepth1b/self.var.SoilDepth1b)*1000
         self.var.SoilDepth2 = self.var.defsoil('SoilDepth3', 'SoilDepth3Forest')
+        self.var.SoilDepth2=(self.var.SoilDepth2/self.var.SoilDepth2)*1000
         self.var.SoilDepthTotal = self.var.SoilDepth1a + self.var.SoilDepth1b + self.var.SoilDepth2
         # ----------------- miscParameters ---------------------------
 
@@ -513,16 +515,27 @@ class soil(HydroModule):
         binding = settings.binding
         
         self.var.TaInterceptionAll = self.var.deffraction(self.var.TaInterception) + self.var.DirectRunoffFraction * self.var.TASealed
+        TaInterceptionNoIrr=self.var.TaInterception
+        TaInterceptionNoIrr[2,:]=np.zeros(TaInterceptionNoIrr[0,:].shape)
+        self.var.TaInterceptionNoIrrPixel=self.var.deffraction(TaInterceptionNoIrr)
+
         self.var.TaInterceptionCUM += self.var.TaInterceptionAll
         self.var.TaInterceptionWB = self.var.TaInterceptionAll
         # Cumulative evaporation of intercepted water [mm]
 
         self.var.TaPixel = self.var.deffraction(self.var.Ta)
+        TaNoIrr=self.var.Ta
+        TaNoIrr[2,:]=np.zeros(TaNoIrr[0,:].shape)
+        self.var.TaNoIrrPixel=self.var.deffraction(TaNoIrr)
         # pixel-average transpiration in [mm] per timestep
         # (no transpiration from direct runoff fraction)
         self.var.TaCUM += self.var.TaPixel
         self.var.TaWB = self.var.TaPixel
         self.var.ESActPixel = self.var.deffraction(self.var.ESAct) + self.var.WaterFraction * self.var.EWaterAct
+        self.var.ESActNoIrr=self.var.ESAct
+        self.var.ESActNoIrr[2,:]=np.zeros(self.var.ESActNoIrr[0,:].shape)
+        self.var.ESActNoIrrPixel=self.var.deffraction(self.var.ESActNoIrr)
+
         # Pixel-average soil evaporation in [mm] per time step
         # (no evaporation from direct runoff fraction)
         self.var.ESActCUM += self.var.ESActPixel
