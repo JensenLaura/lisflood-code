@@ -120,9 +120,7 @@ class soil(HydroModule):
 
         self.var.SoilDepth1a = self.var.defsoil('SoilDepth1', 'SoilDepth1Forest')
         self.var.SoilDepth1b = self.var.defsoil('SoilDepth2', 'SoilDepth2Forest')
-        self.var.SoilDepth1b=(self.var.SoilDepth1b/self.var.SoilDepth1b)*1000
         self.var.SoilDepth2 = self.var.defsoil('SoilDepth3', 'SoilDepth3Forest')
-        self.var.SoilDepth2=(self.var.SoilDepth2/self.var.SoilDepth2)*1000
         self.var.SoilDepthTotal = self.var.SoilDepth1a + self.var.SoilDepth1b + self.var.SoilDepth2
         # ----------------- miscParameters ---------------------------
 
