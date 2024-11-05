@@ -522,6 +522,7 @@ class soil(HydroModule):
         # Cumulative evaporation of intercepted water [mm]
 
         self.var.TaPixel = self.var.deffraction(self.var.Ta)
+        # transpiration from non irrigated land
         TaNoIrr=self.var.Ta
         TaNoIrr[2,:]=np.zeros(TaNoIrr[0,:].shape)
         self.var.TaNoIrrPixel=self.var.deffraction(TaNoIrr)
@@ -530,6 +531,7 @@ class soil(HydroModule):
         self.var.TaCUM += self.var.TaPixel
         self.var.TaWB = self.var.TaPixel
         self.var.ESActPixel = self.var.deffraction(self.var.ESAct) + self.var.WaterFraction * self.var.EWaterAct
+        # remove evaporation from irrrigation land
         self.var.ESActNoIrr=self.var.ESAct
         self.var.ESActNoIrr[2,:]=np.zeros(self.var.ESActNoIrr[0,:].shape)
         self.var.ESActNoIrrPixel=self.var.deffraction(self.var.ESActNoIrr)
