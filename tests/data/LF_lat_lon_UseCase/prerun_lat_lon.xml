@@ -3229,6 +3229,12 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                     </comment>
                 </textvar>
 
+                <textvar name="ETActBudykoMaps" value="$(PathOut)/etactBUDYKO">
+                    <comment>
+                        Reported actual evapotranspiration onfly from forest and others [mm]
+                    </comment>
+                </textvar>
+
                 <textvar name="LeafDrainageMaps" value="$(PathOut)/ldra">
                     <comment>
                         Reported leaf drainage [mm]
@@ -3745,8 +3751,12 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                     <comment>
                         Potential open water evaporation [mm/time step]
                     </comment>
-                </textvar>
-
+                </textvar>                             
+                <textvar name="actETPBUDYKOUpsTS" value="$(PathOut)/actETPBUDYKOUpsTS.tss">                
+                    <comment>
+                        ESActPixel+self.var.TaPixel+self.var.TaInterceptionAll+self.var.EvaAddM3*self.var.M3toMM
+                    </comment>
+                </textvar>  
             </group>
 
             <group>
