@@ -50,7 +50,7 @@ class routing(HydroModule):
                                 'ChanBottomWMult', 'ChanDepthTMult', 'ChanSMult'],
                         'SplitRouting': ['CrossSection2AreaInitValue', 'PrevSideflowInitValue', 'CalChanMan2'],
                         'dynamicWave': ['ChannelsDynamic'],
-                        'MCTRouting': ['ChannelsMCT', 'ChanGradMaxMCT', 'PrevCmMCTInitValue', 'PrevDmMCTInitValue','CalChanMan3']}
+                        'MCTRouting': ['ChannelsMCT', 'ChanGradMaxMCT', 'PrevCmMCTInitValue', 'PrevDmMCTInitValue', 'CalChanMan3']}
     module_name = 'Routing'
 
     def __init__(self, routing_variable):

@@ -1198,6 +1198,27 @@ The option "numCPUs_parallelNumba" may take the following values:
                 </comment>
             </textvar>
 
+            <textvar name="ChanBottomWMult" value="1.0">
+                <comment>
+                    $(PathParams)/params_ChanBottomWMult
+                    Multiplier applied to ChanBottomWidth
+                </comment>
+            </textvar>
+
+            <textvar name="ChanDepthTMult" value="1.0">
+                <comment>
+                    $(PathParams)/params_ChanDepthTMult
+                    Multiplier [] applied to ChanDepthThreshold
+                </comment>
+            </textvar>
+
+            <textvar name="ChanSMult" value="1.0">
+                <comment>
+                    $(PathParams)/params_ChanSMult
+                    Multiplier []  applied to ChanSdXdY
+                </comment>
+            </textvar>
+
         </group>
 
         <group>
@@ -1773,6 +1794,24 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                 <comment>
                     PBchange
                     Multiplier applied to average Q to split into a second line of routing
+                </comment>
+            </textvar>
+
+            <textvar name="ChanBottomWMult" value="$(ChanBottomWMult)">
+                <comment>
+                    Multiplier applied to ChanBottomWidth
+                </comment>
+            </textvar>
+
+            <textvar name="ChanDepthTMult" value="$(ChanDepthTMult)">
+                <comment>
+                    Multiplier applied to ChanDepthThreshold
+                </comment>
+            </textvar>
+
+            <textvar name="ChanSMult" value="$(ChanSMult)">
+                <comment>
+                    Multiplier applied to ChanSdXdY
                 </comment>
             </textvar>
 

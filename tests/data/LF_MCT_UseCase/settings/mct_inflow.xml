@@ -481,6 +481,14 @@ You can use builtin path variables in this template and reference to other paths
                 </comment>
             </textvar>
 
+            <textvar name="CalChanMan3" value="$(PathParams)/params_CalChanMan3.nc">
+                <comment>
+					default: 3.0 [-]
+                    $(PathParams)/CalChanMan3.nc
+					Multiplier [-] applied to Channel Manning's n for MCT routing
+                </comment>
+            </textvar>
+
             <textvar name="LakeMultiplier" value="$(PathParams)/params_LakeMultiplier.nc">
                 <comment>
 					default: 1.0 [-]
@@ -808,20 +816,6 @@ You can use builtin path variables in this template and reference to other paths
                 <comment>
 					initial discharge [m3/s] from previous run for lakes, reservoirs and transmission loss ChanQ
                     only needed for lakes reservoirs and transmission loss
-                    -9999: use 0
-                </comment>
-            </textvar>
-
-            <textvar name="PrevQMCTinInitValue" value="-9999">
-                <comment>
-					total instant input discharge [m3/s] at previous step for MCT routing
-                    -9999: use 0
-                </comment>
-            </textvar>
-
-            <textvar name="PrevQMCToutInitValue" value="-9999">
-                <comment>
-					total instant output discharge [m3/s] at previous step for MCT routing
                     -9999: use 0
                 </comment>
             </textvar>
@@ -2206,6 +2200,12 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                 </comment>
             </textvar>
 
+			<textvar name="CalChanMan3" value="$(CalChanMan3)">
+				<comment>
+					Multiplier applied to Channel Manning's n for MCT routing
+				</comment>
+			</textvar>
+
             <textvar name="QSplitMult" value="$(QSplitMult)">
                 <comment>
                     Multiplier applied to average Q to split into a second line of routing
@@ -2445,20 +2445,6 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                 <comment>
 					initial discharge [m3/s] from previous run for lakes, reservoirs and transmission loss
                     only needed for lakes reservoirs and transmission loss
-                    -9999: use 0
-                </comment>
-            </textvar>
-
-            <textvar name="PrevQMCTinInitValue" value="$(PrevQMCTinInitValue)">
-                <comment>
-					total instant input discharge [m3/s] at previous step for MCT routing
-                    -9999: use 0
-                </comment>
-            </textvar>
-
-            <textvar name="PrevQMCToutInitValue" value="$(PrevQMCToutInitValue)">
-                <comment>
-					total instant output discharge [m3/s] at previous step for MCT routing
                     -9999: use 0
                 </comment>
             </textvar>

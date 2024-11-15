@@ -18,6 +18,7 @@ class TestTSSResults():
     case_dir = os.path.join(os.path.dirname(__file__), 'data', 'LF_MCT_UseCase')
 
     def run_mct(self, date_start, date_end, dtsec, dtsec_chan, type):
+        mk_path_out(os.path.join(self.case_dir, 'out'))
         # generate lisflood results
         out_path_ref = os.path.join(self.case_dir, 'reference', 'output_reference_mct_'+type)
         self.out_path_run = os.path.join(self.case_dir, 'out', 'output_'+type)
@@ -31,6 +32,7 @@ class TestTSSResults():
                                            'DtSec' : dtsec,
                                            'DtSecChannel' : dtsec_chan,        # single routing step
                                            'PathOut': self.out_path_run})
+
 
         mk_path_out(self.out_path_run)
         lisfloodexe(settings)
@@ -56,6 +58,7 @@ class TestTSSResults():
         comparator.compare_files(reference, output_tss)
 
     def run_mcts(self, date_start, date_end, dtsec, dtsec_chan, type):
+        mk_path_out(os.path.join(self.case_dir, 'out'))
         # generate lisflood results
         out_path_ref = os.path.join(self.case_dir, 'reference', 'output_reference_mcts_'+type)
         self.out_path_run = os.path.join(self.case_dir, 'out', 'output_'+type)
@@ -104,6 +107,7 @@ class TestTSSResults():
         comparator.compare_files(reference, output_tss)
 
     def run_kin(self, date_start, date_end, dtsec, dtsec_chan, type):
+        mk_path_out(os.path.join(self.case_dir, 'out'))
         # generate lisflood results
         out_path_ref = os.path.join(self.case_dir, 'reference', 'output_reference_kin_'+type)
         self.out_path_run = os.path.join(self.case_dir, 'out', 'output_'+type)
@@ -142,6 +146,7 @@ class TestTSSResults():
         comparator.compare_files(reference, output_tss)
 
     def run_split(self, date_start, date_end, dtsec, dtsec_chan, type):
+        mk_path_out(os.path.join(self.case_dir, 'out'))
         # generate lisflood results
         out_path_ref = os.path.join(self.case_dir, 'reference', 'output_reference_split_'+type)
         self.out_path_run = os.path.join(self.case_dir, 'out', 'output_'+type)
@@ -194,13 +199,6 @@ class TestTSSResults():
         out_path = os.path.join(self.case_dir, 'out')
         if os.path.exists(out_path) and os.path.isdir(out_path):
             shutil.rmtree(out_path, ignore_errors=True)
-
-        # for item in os.listdir(out_path):
-        #     item_path = os.path.join(out_path, item)
-        #     if os.path.isfile(item_path) or os.path.islink(item_path):
-        #         os.unlink(item_path)  # Remove the file or link
-        #     elif os.path.isdir(item_path):
-        #         shutil.rmtree(item_path)  # Remove the directory and its contents
 
 
 
@@ -260,7 +258,7 @@ class TestMCTResults(TestTSSResults):
     def test_SPLIT_daily_1h(self):
         self.run_split("02/01/2016 06:00", "02/07/2016 06:00", 86400, 3600, 'daily_1h')
 
-    # #########################################
+    #########################################
     # cleaning out/ folder
     def cleaning(self,):
         self.teardown_method()

@@ -186,6 +186,10 @@ The option "MapsCaching" may take the following values:
 
 <comment>
 
+**************************************************************
+PARALLELIZED KINEMATIC ROUTING
+**************************************************************
+
 The option "OutputMapsChunks" may take the following values:
     - "[positive integer number]"  : Dump outputs to disk every X steps (default 1) 
 </comment>
