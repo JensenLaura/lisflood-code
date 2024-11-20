@@ -539,12 +539,14 @@ You can use builtin path variables in this template and reference to other paths
 
             <textvar name="ChanDepthTMult" value="1.0">
                 <comment>
+					$(PathParams)/params_ChanDepthTMult
 					Multiplier [] applied to ChanDepthThreshold
                 </comment>
             </textvar>
 
             <textvar name="ChanSMult" value="1.0">
                 <comment>
+					$(PathParams)/params_ChanSMult
 					Multiplier []  applied to ChanSdXdY
                 </comment>
             </textvar>
@@ -3070,6 +3072,18 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                     </comment>
                 </textvar>
 
+                <textvar name="PrevCmMCTState" value="$(PathOut)/prevcm">
+                    <comment>
+                        Courant number at previous step for MCT routing
+                    </comment>
+                </textvar>
+
+                <textvar name="PrevDmMCTState" value="$(PathOut)/prevdm">
+                    <comment>
+                        Reynolds number at previous step for MCT routing
+                    </comment>
+                </textvar>
+
                 <textvar name="DSLRForestState" value="$(PathOut)/dslrf">
                     <comment>
                         Reported days since last rain
@@ -3342,6 +3356,18 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                 <textvar name="DischargeEnd" value="$(PathOut)/dis.end">
                     <comment>
                         Reported discharge [cu m/s] (average over the model timesteps) (AvgDis)
+                    </comment>
+                </textvar>
+
+                <textvar name="PrevCmMCTEnd" value="$(PathOut)/prevcm.end">
+                    <comment>
+                        Courant number at previous step for MCT routing
+                    </comment>
+                </textvar>
+
+                <textvar name="PrevDmMCTEnd" value="$(PathOut)/prevdm.end">
+                    <comment>
+                        Reynolds number at previous step for MCT routing
                     </comment>
                 </textvar>
 
