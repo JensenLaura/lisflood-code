@@ -36,8 +36,6 @@ class TestWarmStart():
 
     case_dir = os.path.join(os.path.dirname(__file__), 'data', 'LF_MCT_UseCase')
 
-    mk_path_out(os.path.join(case_dir, 'out'))
-
     settings_files = {
         'cold': os.path.join(case_dir, 'settings', 'mct_cold.xml'),
         'warm': os.path.join(case_dir, 'settings', 'mct_warm.xml')
@@ -61,10 +59,11 @@ class TestWarmStart():
 
     def run_warmstart_by_dtsec(self, dt_sec, step_end, step_start, calendar_day_start, report_steps='1..9999'):
 
+        mk_path_out(os.path.join(self.case_dir, 'out'))
+
         check_every = 13  # steps
 
-        path_out_reference = os.path.join(self.case_dir, 'out', 'longrun_reference{}'.format(dt_sec))
-        mk_path_out(path_out_reference)
+        self.path_out_reference = os.path.join(self.case_dir, 'out', 'longrun_reference{}'.format(dt_sec))
 
         settings_longrun = setoptions(self.settings_files['cold'],
                                     opts_to_set=['repStateMaps',
@@ -74,10 +73,11 @@ class TestWarmStart():
                                     vars_to_set={'StepStart': step_start,
                                                    'StepEnd': step_end,
                                                    'CalendarDayStart': calendar_day_start,
-                                                   'PathOut': path_out_reference,
+                                                   'PathOut': self.path_out_reference,
                                                    'ReportSteps': report_steps,
                                                    'DtSec': dt_sec})
         # ** execute
+        mk_path_out(self.path_out_reference)
         lisfloodexe(settings_longrun)
 
 
@@ -85,8 +85,7 @@ class TestWarmStart():
         run_number = 1
         cold_start_step_end = step_start
 
-        path_out = os.path.join(self.case_dir, 'out', 'run{}_{}'.format(dt_sec, run_number))
-        mk_path_out(path_out)
+        self.path_out = os.path.join(self.case_dir, 'out', 'run{}_{}'.format(dt_sec, run_number))
 
         settings_coldstart = setoptions(self.settings_files['cold'],
                                         opts_to_set=['repStateMaps',
@@ -96,10 +95,11 @@ class TestWarmStart():
                                         vars_to_set={'StepStart': step_start,
                                                         'StepEnd': cold_start_step_end,
                                                         'CalendarDayStart': calendar_day_start,
-                                                        'PathOut': path_out,
+                                                        'PathOut': self.path_out,
                                                         'ReportSteps': report_steps,
                                                         'DtSec': dt_sec})
         # ** execute
+        mk_path_out(self.path_out)
         lisfloodexe(settings_coldstart)
 
         # warm run (2. single step warm start/stop with initial conditions from previous run)
@@ -117,8 +117,7 @@ class TestWarmStart():
         while warm_step_start <= step_limit:
             run_number += 1
             path_init = prev_settings.output_dir
-            path_out = (os.path.join(self.case_dir, 'out', 'run{}_{}'.format(dt_sec, run_number)))
-            mk_path_out(path_out)
+            self.path_out = (os.path.join(self.case_dir, 'out', 'run{}_{}'.format(dt_sec, run_number)))
 
             settings_warmstart = setoptions(self.settings_files['warm'],
                                             opts_to_set=['repStateMaps',
@@ -128,12 +127,13 @@ class TestWarmStart():
                                             vars_to_set={'StepStart': warm_step_start.strftime('%d/%m/%Y %H:%M'),
                                                             'StepEnd': warm_step_end.strftime('%d/%m/%Y %H:%M'),
                                                             'CalendarDayStart': calendar_day_start,
-                                                            'PathOut': path_out,
+                                                            'PathOut': self.path_out,
                                                             'PathInit': path_init,
                                                             'timestepInit': timestep_init,
                                                             'ReportSteps': report_steps,
                                                             'DtSec': dt_sec})
             # ** execute
+            mk_path_out(self.path_out)
             lisfloodexe(settings_warmstart)
 
             # checking values at current timestep (using datetime)
@@ -142,8 +142,8 @@ class TestWarmStart():
                 # compare every 13 timesteps to speed up test
                 timestep_dt = settings_warmstart.step_end_dt  # NetCDFComparator takes datetime.datetime as timestep
                 timestep = settings_warmstart.step_end_int
-                nc_comparator.compare_dirs(path_out, path_out_reference, timestep=timestep_dt)
-                tss_comparator.compare_dirs(path_out, path_out_reference, timestep=timestep)
+                nc_comparator.compare_dirs(self.path_out, self.path_out_reference, timestep=timestep_dt)
+                tss_comparator.compare_dirs(self.path_out, self.path_out_reference, timestep=timestep)
 
             # setup for next warm start/stop
             prev_settings = settings_warmstart
@@ -151,9 +151,14 @@ class TestWarmStart():
             warm_step_end = warm_step_start
             timestep_init = prev_settings.step_end_dt.strftime('%d/%m/%Y %H:%M')
 
+    # def teardown_method(self):
+    #     folders_list = glob.glob(os.path.join(os.path.dirname(__file__), 'data/LF_MCT_UseCase/out/run*')) + \
+    #         glob.glob(os.path.join(os.path.dirname(__file__), 'data/LF_MCT_UseCase/out/longrun_reference*')) + \
+    #         glob.glob(os.path.join(os.path.dirname(__file__), 'data/LF_MCT_UseCase/out/init*'))
+    #     for folder in folders_list:
+    #         shutil.rmtree(folder)
     def teardown_method(self):
-        folders_list = glob.glob(os.path.join(os.path.dirname(__file__), 'data/LF_MCT_UseCase/out/run*')) + \
-            glob.glob(os.path.join(os.path.dirname(__file__), 'data/LF_MCT_UseCase/out/longrun_reference*')) + \
-            glob.glob(os.path.join(os.path.dirname(__file__), 'data/LF_MCT_UseCase/out/init*'))
-        for folder in folders_list:
-            shutil.rmtree(folder)
+        print('Cleaning directories')
+        out_path = os.path.join(self.case_dir, 'out')
+        if os.path.exists(out_path) and os.path.isdir(out_path):
+            shutil.rmtree(out_path, ignore_errors=True)
