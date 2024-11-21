@@ -575,7 +575,7 @@ class waterabstraction(HydroModule):
                 IrrigationWaterDemand = irrigation_for_prescribed*self.var.M3toMM
                 IrrigationWaterDemand = np.where(self.var.SoilFraction.values[ivegIrrigatedPrescribed] > 0, IrrigationWaterDemand / self.var.SoilFraction.values[ivegIrrigatedPrescribed], 0)
                 # updating soil moisture of LISFLOOD on Irrigated_prescribed fraction
-                Wold = self.var.W1.values[ivegIrrigatedPrescribed]
+                Wold = self.var.W1.values[ivegIrrigatedPrescribed].copy()
                 # if irrigated soil is less than Pf3 then fill up to Pf3 (if there is water demand)
                 # if more than Pf3 the additional water is transpirated
                 # there is no water demand if the soil is frozen                  
