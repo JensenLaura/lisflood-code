@@ -43,13 +43,13 @@ class TestTSSResults():
         comparator = TSSComparator(atol,rtol)
 
         # compare results for average discharge output
-        reference =  os.path.join(out_path_ref, 'disX.tss')
-        output_tss =  os.path.join(self.out_path_run, 'disX.tss')
+        reference =  os.path.join(out_path_ref, 'disWin.tss')
+        output_tss =  os.path.join(self.out_path_run, 'disWin.tss')
         comparator.compare_files(reference, output_tss)
 
         # compare results for instant discharge output
-        reference =  os.path.join(out_path_ref, 'chanqX.tss')
-        output_tss =  os.path.join(self.out_path_run, 'chanqX.tss')
+        reference =  os.path.join(out_path_ref, 'chanqWin.tss')
+        output_tss =  os.path.join(self.out_path_run, 'chanqWin.tss')
         comparator.compare_files(reference, output_tss)
 
         # compare mass balance error
@@ -82,13 +82,13 @@ class TestTSSResults():
         comparator = TSSComparator(atol,rtol)
 
         # compare results for average discharge output
-        reference =  os.path.join(out_path_ref, 'disX.tss')
-        output_tss =  os.path.join(self.out_path_run, 'disX.tss')
+        reference =  os.path.join(out_path_ref, 'disWin.tss')
+        output_tss =  os.path.join(self.out_path_run, 'disWin.tss')
         comparator.compare_files(reference, output_tss)
 
         # compare results for instant discharge output
-        reference =  os.path.join(out_path_ref, 'chanqX.tss')
-        output_tss =  os.path.join(self.out_path_run, 'chanqX.tss')
+        reference =  os.path.join(out_path_ref, 'chanqWin.tss')
+        output_tss =  os.path.join(self.out_path_run, 'chanqWin.tss')
         comparator.compare_files(reference, output_tss)
 
         # compare mass balance error
@@ -131,13 +131,13 @@ class TestTSSResults():
         comparator = TSSComparator(atol,rtol)
 
         # compare results for average discharge output
-        reference =  os.path.join(out_path_ref, 'disX.tss')
-        output_tss =  os.path.join(self.out_path_run, 'disX.tss')
+        reference =  os.path.join(out_path_ref, 'disWin.tss')
+        output_tss =  os.path.join(self.out_path_run, 'disWin.tss')
         comparator.compare_files(reference, output_tss)
 
         # compare results for instant discharge output
-        reference =  os.path.join(out_path_ref, 'chanqX.tss')
-        output_tss =  os.path.join(self.out_path_run, 'chanqX.tss')
+        reference =  os.path.join(out_path_ref, 'chanqWin.tss')
+        output_tss =  os.path.join(self.out_path_run, 'chanqWin.tss')
         comparator.compare_files(reference, output_tss)
 
         # compare mass balance error
@@ -170,13 +170,13 @@ class TestTSSResults():
         comparator = TSSComparator(atol,rtol)
 
         # compare results for average discharge output
-        reference =  os.path.join(out_path_ref, 'disX.tss')
-        output_tss =  os.path.join(self.out_path_run, 'disX.tss')
+        reference =  os.path.join(out_path_ref, 'disWin.tss')
+        output_tss =  os.path.join(self.out_path_run, 'disWin.tss')
         comparator.compare_files(reference, output_tss)
 
         # compare results for instant discharge output
-        reference =  os.path.join(out_path_ref, 'chanqX.tss')
-        output_tss =  os.path.join(self.out_path_run, 'chanqX.tss')
+        reference =  os.path.join(out_path_ref, 'chanqWin.tss')
+        output_tss =  os.path.join(self.out_path_run, 'chanqWin.tss')
         comparator.compare_files(reference, output_tss)
 
         # compare mass balance error

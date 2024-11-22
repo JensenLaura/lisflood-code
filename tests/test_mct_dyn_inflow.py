@@ -88,8 +88,8 @@ class TestInflow():
         # output_tss =  os.path.join(out_path_run, 'dis.tss')
 
         # test when DtSec != DtSecChannel
-        reference =  os.path.join(out_path_ref, 'chanqX.tss')
-        output_tss =  os.path.join(out_path_run, 'chanqX.tss')
+        reference =  os.path.join(out_path_ref, 'chanqWin.tss')
+        output_tss =  os.path.join(out_path_run, 'chanqWin.tss')
 
         comparator.compare_files(reference, output_tss)
 
