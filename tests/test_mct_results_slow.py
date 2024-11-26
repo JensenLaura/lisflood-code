@@ -33,7 +33,6 @@ class TestTSSResults():
                                            'DtSecChannel' : dtsec_chan,        # single routing step
                                            'PathOut': self.out_path_run})
 
-
         mk_path_out(self.out_path_run)
         lisfloodexe(settings)
 
@@ -204,7 +203,7 @@ class TestTSSResults():
 
 class TestMCTResults(TestTSSResults):
 
-    run_type = 'short'
+    run_type = 'long'
 
     ###########################################
     # test results of MCT+KIN routing
@@ -245,7 +244,7 @@ class TestMCTResults(TestTSSResults):
     def test_KIN_daily_1h(self):
         self.run_kin("02/01/2016 06:00", "02/07/2016 06:00", 86400, 3600, 'daily_1h')
 
-    # #########################################
+    #########################################
     # test results of Split routing
     def test_SPLIT_6h(self):
         self.run_split("02/01/2016 06:00", "02/07/2016 06:00", 21600, 21600, '6h')

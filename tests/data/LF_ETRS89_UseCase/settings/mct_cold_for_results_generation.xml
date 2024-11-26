@@ -48,7 +48,7 @@ You can use builtin path variables in this template and reference to other paths
         <setoption choice="0" name="simulateReservoirs"/>
 
         <setoption choice="0" name="SplitRouting"/>
-        <setoption choice="0" name="MCTRouting"/>
+        <setoption choice="1" name="MCTRouting"/>
 
 
         # use inflow data
@@ -108,7 +108,7 @@ You can use builtin path variables in this template and reference to other paths
 		<setoption choice="0"  name="repEWRefMaps"/>
 	
 		# dicharge
-        <setoption choice="1" name="repDischargeMaps"/> 
+        <setoption choice="0" name="repDischargeMaps"/>
 
 		<setoption choice="0" name="repAverageDis"/>             
         <setoption choice="0" name="repLZAvInflow"/>
@@ -299,7 +299,7 @@ You can use builtin path variables in this template and reference to other paths
                 </comment>
             </textvar>
 
-            <textvar name="DtSecChannel" value="3600">
+            <textvar name="DtSecChannel" value="21600">
                 <comment>
                     17280 5 times subrouting
 					21600 6 hours
