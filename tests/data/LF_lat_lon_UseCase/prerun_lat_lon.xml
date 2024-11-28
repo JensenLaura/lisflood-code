@@ -44,7 +44,7 @@
         <setoption choice="1" name="SplitRouting"/>
         <setoption choice="1" name="InitLisflood"/>
         <setoption choice="0" name="InitLisfloodwithoutSplit"/>
-        <setoption choice="0" name="WarmStart"/>
+        <setoption choice="0" name="ColdStart"/>
 
         <setoption choice="0" name="repEndMaps"/>
         <setoption choice="0" name="repTopSoilMoistureMaps"/>
@@ -3597,7 +3597,12 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                         Days since last rain [days]
                     </comment>
                 </textvar>
-
+                
+                <textvar name="actETPBUDYKOUpsTS" value="$(PathOut)/actETPBUDYKOUpsTS.tss">
+                    <comment>
+                       actual evapotranspiration (Budyko) [mm]
+                    </comment>
+                </textvar>
 
             </group>
 

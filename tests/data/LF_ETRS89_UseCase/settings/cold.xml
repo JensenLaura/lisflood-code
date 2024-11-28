@@ -44,7 +44,7 @@
 
         # option to initialize Lisflood
         <setoption choice="0" name="InitLisflood"/>
-        <setoption choice="0" name="WarmStart"/>
+        <setoption choice="1" name="ColdStart"/>
 
         # option to read/write NetCDF
         <setoption choice="1" name="readNetcdfStack"/>
@@ -3830,7 +3830,12 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                         Days since last rain [days]
                     </comment>
                 </textvar>
-
+                
+                <textvar name="actETPBUDYKOUpsTS" value="$(PathOut)/actETPBUDYKOUpsTS.tss">
+                    <comment>
+                       actual evapotranspiration (Budyko) [mm]
+                    </comment>
+                </textvar>
 
             </group>
 

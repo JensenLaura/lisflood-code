@@ -276,7 +276,7 @@ class soil(HydroModule):
         # Set to zero if soil depth is zero.
         # IMPORTANT: WInit1 and WInit2 represent the soil moisture in the *permeable* fraction of the pixel *only*
         # (since all soil moisture-related calculations are done for permeable fraction only!).
-        if not option['InitLisflood'] and not option['WarmStart']:  
+        if option['ColdStart']:  
              self.var.SeepTopToSubBAv[0] = loadmap('SeepTopToSubBAverageOtherMap')
              self.var.SeepTopToSubBAv[1] = loadmap('SeepTopToSubBAverageForestMap')
              self.var.SeepTopToSubBAv[2] = loadmap('SeepTopToSubBAverageIrrigationMap')
@@ -293,7 +293,7 @@ class soil(HydroModule):
             self.var.W2[iveg] = np.where(self.var.PoreSpaceNotZero2[iluse], ini_2, 0)
             
             
-            if not option['InitLisflood'] and not option['WarmStart']:                   
+            if option['ColdStart']:                   
              check_prerun_results1 = np.min(ThetaInit2Value[iveg])
              check_prerun_results2 = np.min(self.var.SeepTopToSubBAv[iluse])
              check_prerun_results =  np.min([check_prerun_results1,check_prerun_results2]) 
