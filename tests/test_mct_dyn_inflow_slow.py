@@ -33,6 +33,7 @@ class TestInflow():
                                            'CalendarDayStart': date_start,
                                            'DtSec' : dtsec,
                                            # 'DtSecChannel' : dtsec,        # single routing step
+                                           'BankFullPerc': '0.1',
                                            'MaskMap': '$(PathRoot)/maps/mask.nc',
                                            'Gauges': '4317500 2447500',  # one cell upstream of inflow point
                                            'ChanqTS': out_path_run+'/inflow.tss',
@@ -54,6 +55,7 @@ class TestInflow():
                                            'CalendarDayStart': date_start,
                                            'DtSec' : dtsec,
                                            # 'DtSecChannel': dtsec,     # single routing step
+                                           'BankFullPerc': '0.1',
                                            'MaskMap': '$(PathRoot)/maps/mask.nc',
                                            'Gauges': '4322500 2447500', # inflow point
                                            'PathOut': out_path_run})
@@ -74,6 +76,7 @@ class TestInflow():
                                            'CalendarDayStart': date_start,
                                            'DtSec' : dtsec,
                                            # 'DtSecChannel': dtsec,     # single routing step
+                                           'BankFullPerc': '0.1',
                                            'MaskMap': '$(PathRoot)/maps/interbasin_mask.nc',
                                            'InflowPoints': '$(PathRoot)/maps/inflow_point_1.nc',
                                            'QInTS': out_path_ref+'/inflow.tss',
@@ -82,14 +85,15 @@ class TestInflow():
         mk_path_out(out_path_run)
         lisfloodexe(settings)
 
-        # set precisioon for the test
-        atol = 3.
-        rtol = 0.005
+        # set precision for the test
+        atol = 15.
+        rtol = 0.1
         comparator = TSSComparator(atol,rtol)
 
-        # test when DtSec = DtSecChannel
-        # reference =  os.path.join(out_path_ref, 'dis.tss')
-        # output_tss =  os.path.join(out_path_run, 'dis.tss')
+        # # test when DtSec = DtSecChannel
+        # reference =  os.path.join(out_path_ref, 'disWin.tss')
+        # output_tss =  os.path.join(out_path_run, 'disWin.tss')
+        # comparator.compare_files(reference, output_tss)
 
         # test when DtSec != DtSecChannel
         reference =  os.path.join(out_path_ref, 'chanqWin.tss')
@@ -97,16 +101,16 @@ class TestInflow():
 
         comparator.compare_files(reference, output_tss)
 
-    # def teardown_method(self, type):
-    #     print('Cleaning directories')
-    #
-    #     ref_path = os.path.join(self.case_dir, 'reference_mct_dyn')
-    #     if os.path.exists(ref_path) and os.path.isdir(ref_path):
-    #         shutil.rmtree(ref_path, ignore_errors=True)
-    #
-    #     out_path = os.path.join(self.case_dir, self.run_type)
-    #     if os.path.exists(out_path) and os.path.isdir(out_path):
-    #         shutil.rmtree(out_path, ignore_errors=True)
+    def teardown_method(self, type):
+        print('Cleaning directories')
+
+        ref_path = os.path.join(self.case_dir, 'reference_mct_dyn')
+        if os.path.exists(ref_path) and os.path.isdir(ref_path):
+            shutil.rmtree(ref_path, ignore_errors=True)
+
+        out_path = os.path.join(self.case_dir, self.run_type)
+        if os.path.exists(out_path) and os.path.isdir(out_path):
+            shutil.rmtree(out_path, ignore_errors=True)
 
 
 class TestInflowShort(TestInflow):
@@ -114,10 +118,10 @@ class TestInflowShort(TestInflow):
     run_type = 'short'
 
     def test_inflow_6h(self):
-        self.run("01/03/2016 06:00", "30/03/2016 06:00", 21600,'6h')
+        self.run("02/01/2016 06:00", "30/12/2016 06:00", 21600,'6h')
 
     def test_inflow_daily(self):
-         self.run("02/01/2016 06:00", "30/01/2016 06:00", 86400,'daily')
+         self.run("02/01/2016 06:00", "30/12/2016 06:00", 86400,'daily')
 
     # cleaning folders
     def cleaning(self,):

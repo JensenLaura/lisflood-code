@@ -102,8 +102,8 @@ class TestTSSResults():
         comparator.compare_files(reference, output_tss)
 
         # compare split routing outlet mass balance error
-        reference =  os.path.join(out_path_ref, 'OutletDischargeErrorSplitRoutingM3S.tss')
-        output_tss =  os.path.join(self.out_path_run, 'OutletDischargeErrorSplitRoutingM3S.tss')
+        reference = os.path.join(out_path_ref, 'OutletDischargeErrorSplitRoutingM3S.tss')
+        output_tss = os.path.join(self.out_path_run, 'OutletDischargeErrorSplitRoutingM3S.tss')
         comparator.compare_files(reference, output_tss)
 
     def run_kin(self, date_start, date_end, dtsec, dtsec_chan, type):

@@ -1288,8 +1288,6 @@ You can use builtin path variables in this template and reference to other paths
                 </comment>
             </textvar>
 
-
-
             <textvar name="FirstDayOfMonth" value="$(PathTables)/firstdayofmonth.txt">
                 <comment>
                     table with days for each water use maps
@@ -1399,7 +1397,6 @@ You can use builtin path variables in this template and reference to other paths
         </group>
 
 
-
         <group>
             <comment>
                 **************************************************************
@@ -1423,8 +1420,6 @@ You can use builtin path variables in this template and reference to other paths
         </group>
 
 
-
-
         <group>
 
             <comment>
@@ -1435,8 +1430,8 @@ You can use builtin path variables in this template and reference to other paths
                 Suggested parameterisation strategy:
 
                 - Use TransSub as calibration constant leave all other parameters at default values
-
             </comment>
+
             <textvar name="TransSub" value="0.3">
                 <comment>
                     Transmission loss function parameter
@@ -1490,6 +1485,14 @@ You can use builtin path variables in this template and reference to other paths
                 <comment>
                     Reference depth of overland flow [mm], used to compute
                     overland flow Alpha for kin. wave
+                </comment>
+            </textvar>
+
+            <textvar name="BankFullPerc" value="0.5">
+                <comment>
+                    Percentage [-] used to compute the TotalCrossSectionAreaHalfBankFull in the initialisation of the
+                    total cross-sectional area
+                    default: 0.5
                 </comment>
             </textvar>
 
@@ -2233,6 +2236,14 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                 <comment>
                     Reference depth of overland flow [mm], used to compute
                     overland flow Alpha for kin. wave
+                </comment>
+            </textvar>
+
+            <textvar name="BankFullPerc" value="$(BankFullPerc)">
+                <comment>
+                    Percentage [-] used to compute the TotalCrossSectionAreaHalfBankFull in the initialisation of the
+                    total cross-sectional area
+                    default: 0.5
                 </comment>
             </textvar>
 
@@ -3429,9 +3440,8 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                         Reported storage in upper response box [mm]
                     </comment>
                 </textvar>
-
-
             </group>
+
 
             <group>
                 <comment>
@@ -4132,9 +4142,8 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                         Days since last rain [days]
                     </comment>
                 </textvar>
-
-
             </group>
+
 
             <group>
                 <comment>
@@ -4372,9 +4381,8 @@ LFBINDING: MORE LOW-LEVEL CONTROL OVER MODEL IN- AND OUTPUT
                         Days since last rain [days]
                     </comment>
                 </textvar>
-
-
             </group>
+
 
             <group>
                 <comment>

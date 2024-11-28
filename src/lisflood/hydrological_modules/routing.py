@@ -242,7 +242,9 @@ class routing(HydroModule):
         #     0.5 * ChanDepthThreshold * (ChanUpperWidthHalfBankFull + self.var.ChanBottomWidth)
         # Cross-sectional area at half bankfull [m2]
         # This can be used to initialise channel flow (see below)
-        TotalCrossSectionAreaHalfBankFull = 0.5 * self.var.TotalCrossSectionAreaBankFull
+        BankFullPerc = loadmap('BankFullPerc')
+        TotalCrossSectionAreaHalfBankFull = BankFullPerc * self.var.TotalCrossSectionAreaBankFull
+        # set BankFullPerc to 0.5 for half bankfull
 
         TotalCrossSectionAreaInitValue = loadmap('TotalCrossSectionAreaInitValue')
         self.var.TotalCrossSectionArea = np.where(TotalCrossSectionAreaInitValue == -9999, TotalCrossSectionAreaHalfBankFull, TotalCrossSectionAreaInitValue)

@@ -29,9 +29,9 @@ class TestInflow():
                                            'CalendarDayStart': date_start,
                                            'DtSec' : dtsec,
                                            # 'DtSecChannel' : dtsec,        # single routing step
+                                           'BankFullPerc': '0.5',
                                            'MaskMap': '$(PathRoot)/maps/mask.nc',
-                                           # 'Gauges': '4317500 2447500  4322500 2447500  4322500 2442500',
-                                           'Gauges': '4292500 2377500',  # one cell upstream of inflow point
+                                           'Gauges': '4292500 2377500',     # one cell upstream of inflow point
                                            'ChanqTS': out_path_run+'/inflow.tss',
                                            'PathOut': out_path_run})
         mk_path_out(out_path_ref)
@@ -47,9 +47,9 @@ class TestInflow():
                                            'StepEnd': date_end,
                                            'CalendarDayStart': date_start,
                                            'DtSec' : dtsec,
-                                           # 'DtSecChannel': dtsec,     # single routing step
+                                           # 'DtSecChannel': dtsec,         # single routing step
+                                           'BankFullPerc': '0.5',
                                            'MaskMap': '$(PathRoot)/maps/mask.nc',
-                                           # 'Gauges': '4322500 2447500  4322500 2442500',
                                            # 'Gauges': '4322500 2447500  4447500 2422500',    # inflow and outlet
                                            'Gauges': '4297500 2372500',                       # inflow point
                                            'PathOut': out_path_run})
@@ -62,16 +62,15 @@ class TestInflow():
         settings_file = os.path.join(self.case_dir, 'settings', 'mct_inflow.xml')
         settings = setoptions(settings_file,
                               opts_to_set=['inflow'],
-                              # opts_to_unset=['SplitRouting'],
                               vars_to_set={'StepStart': date_start,
                                            'StepEnd': date_end,
                                            'CalendarDayStart': date_start,
                                            'DtSec' : dtsec,
                                            # 'DtSecChannel': dtsec,     # single routing step
+                                           'BankFullPerc': '0.5',
                                            'MaskMap': '$(PathRoot)/maps/interbasin_mask.nc',
                                            'InflowPoints': '$(PathRoot)/maps/inflow.nc',
                                            'QInTS': out_path_ref+'/inflow.tss',
-                                           # 'Gauges': '4322500 2447500  4322500 2442500',
                                            # 'Gauges': '4322500 2447500  4447500 2422500',    # inflow and outlet
                                            'Gauges': '4297500 2372500',                       # inflow point
                                            'PathOut': out_path_run})
@@ -83,9 +82,10 @@ class TestInflow():
         rtol = 0.005
         comparator = TSSComparator(atol,rtol)
 
-        # test when DtSec = DtSecChannel
-        # reference =  os.path.join(out_path_ref, 'dis.tss')
-        # output_tss =  os.path.join(out_path_run, 'dis.tss')
+        # # test when DtSec = DtSecChannel
+        # reference =  os.path.join(out_path_ref, 'disWin.tss')
+        # output_tss =  os.path.join(out_path_run, 'disWin.tss')
+        # comparator.compare_files(reference, output_tss)
 
         # test when DtSec != DtSecChannel
         reference =  os.path.join(out_path_ref, 'chanqWin.tss')
@@ -118,7 +118,6 @@ class TestInflowShort(TestInflow):
     # cleaning folders
     def cleaning(self,):
         self.teardown_method()
-
 
 
 
