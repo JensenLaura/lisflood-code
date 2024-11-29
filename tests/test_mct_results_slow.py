@@ -12,7 +12,7 @@ from lisflood.global_modules.settings import LisSettings
 
 from .test_utils import setoptions, mk_path_out
 
-# @pytest.mark.slow
+@pytest.mark.slow
 class TestTSSResults():
 
     case_dir = os.path.join(os.path.dirname(__file__), 'data', 'LF_ETRS89_UseCase')
