@@ -30,6 +30,8 @@ from .test_utils import setoptions, mk_path_out, ETRS89TestCase
 @pytest.mark.slow
 class TestCatch(ETRS89TestCase):
     case_dir = os.path.join(os.path.dirname(__file__), 'data', 'LF_ETRS89_UseCase')
+    mk_path_out(os.path.join(case_dir, 'out'))
+
     modules_to_set = (
         'SplitRouting',
         'simulateReservoirs',
@@ -68,6 +70,7 @@ class TestCatch(ETRS89TestCase):
                                            'StepEnd': step_end,
                                            'DtSec': dt_sec,
                                            'PathOut': output_dir})
+        mk_path_out(output_dir)
         lisfloodexe(settings)
 
     def test_output_daily(self):
@@ -115,6 +118,7 @@ class TestCatch(ETRS89TestCase):
                               vars_to_set={'StepStart': '02/02/2016 06:00',
                                            'StepEnd': '05/02/2016 06:00',
                                            'PathOut': output_dir})
+        mk_path_out(output_dir)
         lisfloodexe(settings)
         initcond_files = ('ch2cr.end.nc', 'chanq.end.nc', 'chcro.end.nc', 
                         'chside.end.nc', 'cseal.end.nc', 'cum.end.nc', 

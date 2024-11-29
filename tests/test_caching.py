@@ -149,6 +149,7 @@ class TestCachingSlow(ETRS89TestCase):
         self.compare_reference('dis', check='tss', step_length=dt_sec)
         self.compare_reference('chanq', check='tss', step_length=dt_sec)
 
+
     def test_dis_daily(self):
         self.run('86400', '02/01/2016 06:00', '02/07/2016 06:00')
 
