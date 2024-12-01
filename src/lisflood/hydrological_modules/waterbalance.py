@@ -100,12 +100,12 @@ class waterbalance(object):
 
             if option['simulateLakes']:
                 DisStructure += np.where(compressArray(self.var.IsUpsOfStructureLake), 0.5 * self.var.ChanQ * self.var.DtRouting, 0)
-
                 # DisStructure += cover(ifthen(self.var.IsUpsOfStructureLake,
                 #  0.5 * self.var.ChanQ * self.var.DtRouting), scalar(0.0))
                 # because Modified Puls Method is use, some additional offset
                 # has to be added
-            
+                
+            DisStructure[self.var.AtLastPointC == 1 ] = 0 # this line avoids double-counting when a reservoir or a lake is located at the outlet of the cacthment
             self.var.DischargeM3StructuresIni = np.take(np.bincount(self.var.Catchments, weights=DisStructure), self.var.Catchments)
 
 # --------------------------------------------------------------------------
@@ -233,8 +233,8 @@ class waterbalance(object):
             # new 12.11.09 PB
             # added cumulative transmission loss
             DisStru = np.where(self.var.IsUpsOfStructureKinematicC, self.var.ChanQ * self.var.DtRouting, 0)
+            DisStru[self.var.AtLastPointC == 1 ] = 0 # this line avoids double-counting when a reservoir or a lake is located at the outlet of the cacthment
             DischargeM3Structures = np.take(np.bincount(self.var.Catchments, weights=DisStru), self.var.Catchments)
-
             # on the last time step lakes and reservoirs calculated with the previous routing results
             # so the last (now routed) discharge has to be added to the mass balance
             # (-> the calculation odf the structures is done before the routing)

@@ -664,19 +664,19 @@ class routing(HydroModule):
                      sum1 =self.var.ChanQ.copy()
                      StorageStep =  StorageStep + self.var.ReservoirStorageM3.copy()
                      DisStructureSR = np.where(self.var.IsUpsOfStructureKinematicC, sum1 * self.var.DtRouting, 0)
+                     DisStructureSR[self.var.AtLastPointC == 1 ] = 0 # this line avoids double-counting when a reservoir is located at the outlet of the cacthment
                      DischargeM3StructuresR = np.take(np.bincount(self.var.Catchments, weights=DisStructureSR), self.var.Catchments)                
-                     DischargeM3StructuresR -= self.var.DischargeM3StructuresIni
-                       
+                     DischargeM3StructuresR -= self.var.DischargeM3StructuresIni                       
                   if option['simulateLakes']:
                      sum1 =self.var.ChanQ.copy()
                      StorageStep =  StorageStep + self.var.LakeStorageM3Balance.copy()
                      DisStructureSR = np.where(self.var.IsUpsOfStructureKinematicC, sum1 * self.var.DtRouting, 0)
+                     DisStructureSR[self.var.AtLastPointC == 1 ] = 0 # this line avoids double-counting when a lake is located at the outlet of the cacthment
                      DischargeM3StructuresR = np.take(np.bincount(self.var.Catchments, weights=DisStructureSR), self.var.Catchments)               
                      DisLake = maskinfo.in_zero()
                      np.put(DisLake, self.var.LakeIndex, 0.5 * self.var.LakeInflowCC * self.var.DtRouting)
                      DischargeM3Lake = np.take(np.bincount(self.var.Catchments, weights=DisLake),self.var.Catchments)
                      DischargeM3StructuresR += DischargeM3Lake
-
                      DischargeM3StructuresR -= self.var.DischargeM3StructuresIni                    
                                         
                   # Mass Balance Error due to the Split Routing module
