@@ -221,7 +221,7 @@ class waterbalance(object):
             if option['openwaterevapo']:
                 WaterOut += np.take(np.bincount(self.var.Catchments, weights=self.var.EvaWBM3),self.var.Catchments)
             if option['TransLoss']:
-                WaterOut += np.take(np.bincount(self.var.Catchments, weights=self.var.TransCum),self.var.Catchments)
+                WaterOut += np.take(np.bincount(self.var.Catchments, weights=self.var.TransLossWBM3),self.var.Catchments)
             if option['wateruse']:
                 print('WARNING: the water balance module has NOT been verified yet when the option wateruse is ON!')
                 WaterOut += np.take(np.bincount(self.var.Catchments, weights=self.var.IrriLossCUM),self.var.Catchments)

@@ -447,7 +447,7 @@ class routing(HydroModule):
         # initLisflood)
 
         self.inflow_module.dynamic_inloop(NoRoutingExecuted)
-        self.transmission_module.dynamic_inloop()
+        self.transmission_module.dynamic_inloop(NoRoutingExecuted)
 
         # ************************************************************
         # ***** CHANNEL FLOW ROUTING: KINEMATIC WAVE  ****************

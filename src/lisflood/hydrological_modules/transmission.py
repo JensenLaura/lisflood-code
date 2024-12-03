@@ -19,6 +19,8 @@ from __future__ import absolute_import, print_function
 
 import numpy as np
 
+from lisflood.global_modules.errors import LisfloodError
+
 from ..global_modules.settings import LisSettings, MaskInfo
 from ..global_modules.add1 import loadmap
 from . import HydroModule
@@ -56,15 +58,16 @@ class transmission(HydroModule):
             # if upstream area (the total one) is bigger than a threshold us
             # transmission loss
             self.var.TransPower1 = loadmap('TransPower1')
-            self.var.TransPower2 = 1.0 / self.var.TransPower1
+            # self.var.TransPower2 = 1.0 / self.var.TransPower1
             # transmission loss function
             maskinfo = MaskInfo.instance()
             self.var.TransCum = maskinfo.in_zero()
+            self.var.TransLossWBM3 = maskinfo.in_zero()
         # Cumulative transmission loss
         # self.var.TransLossM3Dt = maskinfo.in_zero()
         # substep amount of transmission loss
 
-    def dynamic_inloop(self):
+    def dynamic_inloop(self, NoRoutingExecuted):
         """ dynamic part of the transmission loss routine
            inside the sub time step routing routine
         """
@@ -74,16 +77,33 @@ class transmission(HydroModule):
         # ************************************************************
         settings = LisSettings.instance()
         option = settings.options
-        if option['TransLoss']:
+        maskinfo = MaskInfo.instance()
+        if option['TransLoss']:   
+             
+            if option['SplitRouting']:
+                # flag with an error message and STOP:
+                # TransLoss in combination with SplitRouting leads to mass balance errors. These two options cannot be used at thhe same time, until we fix the mass balance error.
+                msg = "TransLoss cannot be used in combination with SplitRouting"
+                raise LisfloodError(msg)
 
+            #TransOut = np.where(self.var.UpTrans,
+            #            (self.var.ChanQ ** self.var.TransPower2 - self.var.TransSub)
+            #            ** self.var.TransPower1, self.var.ChanQ)
             TransOut = np.where(self.var.UpTrans,
-                        (self.var.ChanQ ** self.var.TransPower2 - self.var.TransSub)
-                        ** self.var.TransPower1, self.var.ChanQ)
+                        (self.var.ChanQ ** (1.0 / self.var.TransPower1) - self.var.TransSub)
+                        ** self.var.TransPower1, self.var.ChanQ)                                         
             # transmission loss (equation: Rao and Maurer 1996, Water Resources
             # Bulletin Vol 32, No.6)
 
-            self.var.TransLossM3Dt = (self.var.ChanQ - TransOut) * self.var.DtRouting
+            TransOut = np.where(self.var.TransSub>10e-12,TransOut,self.var.ChanQ) ## Carlo, could you please check this? TransOut is a calibraton parameter     
+            self.var.TransLossM3Dt =  np.where((self.var.ChanQ - TransOut)>0.0, (self.var.ChanQ - TransOut) * self.var.DtRouting,0.0)
             #self.var.TransLossM3Dt = cover((self.var.ChanQ - TransOut) * self.var.DtRouting, scalar(0.0))
             # Loss is Q - transmission outflow
-            self.var.TransCum += self.var.TransLossM3Dt
+            
+            if NoRoutingExecuted == 0:
+             self.var.TransLossWBM3 = maskinfo.in_zero() 
+            
+            self.var.TransLossWBM3 += self.var.TransLossM3Dt 
             # for mass balance
+            
+            self.var.TransCum += self.var.TransLossM3Dt
