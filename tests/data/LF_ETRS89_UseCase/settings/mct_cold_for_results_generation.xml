@@ -47,8 +47,8 @@ You can use builtin path variables in this template and reference to other paths
         <setoption choice="0" name="simulateLakes"/>
         <setoption choice="0" name="simulateReservoirs"/>
 
-        <setoption choice="0" name="SplitRouting"/>
-        <setoption choice="1" name="MCTRouting"/>
+        <setoption choice="1" name="SplitRouting"/>
+        <setoption choice="0" name="MCTRouting"/>
 
 
         # use inflow data
@@ -231,7 +231,7 @@ You can use builtin path variables in this template and reference to other paths
 				**************************************************************
 			</comment>
 
-			<textvar name="PathRoot" value= "/perm/mocm/proj/MUSKINGUM/src/lisflood-code/tests/data/LF_ETRS89_UseCase/">
+			<textvar name="PathRoot" value= "$(SettingsPath)/..">
                 <comment>
 					MAPSDIR
 					Root directory (tables and parameters)
@@ -293,7 +293,7 @@ You can use builtin path variables in this template and reference to other paths
                 </comment>
             </textvar>
 
-            <textvar name="DtSec" value="21600">
+            <textvar name="DtSec" value="86400">
                 <comment>
                     timestep [seconds]
                 </comment>
@@ -315,7 +315,7 @@ You can use builtin path variables in this template and reference to other paths
                 </comment>
             </textvar>
 
-            <textvar name="StepEnd" value="02/07/2016 06:00">
+            <textvar name="StepEnd" value="31/12/2016 06:00">
               <comment>
 					01/01/YEAR_END 06:00
 					Number of last time step in simulation
