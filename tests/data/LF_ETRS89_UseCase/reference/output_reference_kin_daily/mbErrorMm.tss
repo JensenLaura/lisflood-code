@@ -1,4 +1,4 @@
-timeseries valuescale.scalar settingsfile: /perm/mocm/prg/oslisflood/jrc/lisflood-code/tests/data/LF_ETRS89_UseCase/settings/mct_cold_for_results_generation.xml date: Fri Dec  6 16:42:14 2024
+timeseries valuescale.scalar settingsfile: /perm/mocm/prg/oslisflood/jrc/lisflood-code/tests/data/LF_ETRS89_UseCase/settings/mct_cold_for_results_generation.xml date: Fri Dec  6 17:39:25 2024
 2
 timestep
 1
@@ -338,7 +338,7 @@ timestep
       334   -8.47822e-12
       335   -4.79102e-11
       336   -3.68388e-09
-      337   -5.74771e-11
+      337   -5.74763e-11
       338   -1.10526e-09
       339   -3.26878e-10
       340   -2.39818e-09
