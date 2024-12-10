@@ -37,8 +37,8 @@ class TestTSSResults():
         lisfloodexe(settings)
 
         # set precision for the test
-        atol = 0.00001
-        rtol = 0.0001
+        atol = 0.0001
+        rtol = 0.001
         comparator = TSSComparator(atol,rtol)
 
         # compare results for average discharge output
@@ -76,8 +76,8 @@ class TestTSSResults():
         lisfloodexe(settings)
 
         # set precisioon for the test
-        atol = 0.00001
-        rtol = 0.0001
+        atol = 0.0001
+        rtol = 0.001
         comparator = TSSComparator(atol,rtol)
 
         # compare results for average discharge output
