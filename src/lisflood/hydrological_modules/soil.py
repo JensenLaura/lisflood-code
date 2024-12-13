@@ -66,7 +66,8 @@ class soil(HydroModule):
                                 'b_Xinanjiang', 'PowerPrefFlow',
                                 'DSLRInitValue', 'DSLRForestInitValue', 'DSLRIrrigationInitValue',
                                 'CumIntInitValue', 'CumIntForestInitValue', 'CumIntIrrigationInitValue',
-                                'CumIntSealedInitValue', 'SMaxSealed'],
+                                'CumIntSealedInitValue', 'SMaxSealed',
+                                'cumSeepTopToSubBOtherInit','cumSeepTopToSubBForestInit','cumSeepTopToSubBIrrigationInit','TimeSinceStartPrerunChunkInit'],  ## Carlo, these inputs are mandatory only in specific conditions...keep??  
                         'drainedIrrigation': ['DrainedFraction'],
                         'simulatePF': ['HeadMax']}
     module_name = 'Soil'
@@ -276,7 +277,13 @@ class soil(HydroModule):
         # Set to zero if soil depth is zero.
         # IMPORTANT: WInit1 and WInit2 represent the soil moisture in the *permeable* fraction of the pixel *only*
         # (since all soil moisture-related calculations are done for permeable fraction only!).
-        if option['ColdStart']:  
+        
+        if option['InitLisflood']: # these files are required to correctly compute the pre-run in chunks
+             self.var.cumSeepTopToSubBAv[0] = loadmap('cumSeepTopToSubBOtherInit')
+             self.var.cumSeepTopToSubBAv[1] = loadmap('cumSeepTopToSubBForestInit')
+             self.var.cumSeepTopToSubBAv[2] = loadmap('cumSeepTopToSubBIrrigationInit')          
+        
+        if option['ColdStart']:  # these files are required for the correct initialization of the third soil layer
              self.var.SeepTopToSubBAv[0] = loadmap('SeepTopToSubBAverageOtherMap')
              self.var.SeepTopToSubBAv[1] = loadmap('SeepTopToSubBAverageForestMap')
              self.var.SeepTopToSubBAv[2] = loadmap('SeepTopToSubBAverageIrrigationMap')
@@ -562,14 +569,14 @@ class soil(HydroModule):
         # (no seepage from direct runoff fraction)
         
         if option['InitLisflood']:
-          NumDaysSpinUp = float(binding['NumDaysSpinUp'])
-          if  (self.var.TimeSinceStart > np.round(NumDaysSpinUp/self.var.DtDay)) :
+          self.var.NumDaysSpinUp = float(binding['NumDaysSpinUp'])  ## Carlo, should we add this input where we read self.var.InvDtDay ... same for  self.var.TimeSinceStartPrerunChunkInit (A MAP!)
+          if  (self.var.TimeSinceStart > np.round(self.var.NumDaysSpinUp/self.var.DtDay)) : ## Carlo, in prerun we must always include at least (NumDaysSpinUp + 1) for LISFLOOD to work...
               self.var.cumSeepTopToSubBAv[0] += self.var.SeepTopToSubB[0] 
-              self.var.SeepTopToSubBAv[0] = (self.var.cumSeepTopToSubBAv[0] * self.var.InvDtDay) / (self.var.TimeSinceStart - np.round(NumDaysSpinUp/self.var.DtDay)) 
+              self.var.SeepTopToSubBAv[0] = (self.var.cumSeepTopToSubBAv[0] * self.var.InvDtDay) / (self.var.TimeSinceStart + self.var.TimeSinceStartPrerunChunkInit[0] - np.round(self.var.NumDaysSpinUp/self.var.DtDay)) 
               self.var.cumSeepTopToSubBAv[1] += self.var.SeepTopToSubB[1] 
-              self.var.SeepTopToSubBAv[1] = (self.var.cumSeepTopToSubBAv[1] * self.var.InvDtDay) / (self.var.TimeSinceStart - np.round(NumDaysSpinUp/self.var.DtDay)) 
+              self.var.SeepTopToSubBAv[1] = (self.var.cumSeepTopToSubBAv[1] * self.var.InvDtDay) / (self.var.TimeSinceStart  + self.var.TimeSinceStartPrerunChunkInit[0] - np.round(self.var.NumDaysSpinUp/self.var.DtDay)) 
               self.var.cumSeepTopToSubBAv[2] += self.var.SeepTopToSubB[2] 
-              self.var.SeepTopToSubBAv[2] = (self.var.cumSeepTopToSubBAv[2] * self.var.InvDtDay) / (self.var.TimeSinceStart - np.round(NumDaysSpinUp/self.var.DtDay))                    
+              self.var.SeepTopToSubBAv[2] = (self.var.cumSeepTopToSubBAv[2] * self.var.InvDtDay) / (self.var.TimeSinceStart + self.var.TimeSinceStartPrerunChunkInit[0] - np.round(self.var.NumDaysSpinUp/self.var.DtDay))          
     
         
         # the variables below were added to report catchment-averaged soil moisture profiles

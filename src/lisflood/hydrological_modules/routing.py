@@ -43,7 +43,7 @@ class routing(HydroModule):
     input_files_keys = {'all': ['beta', 'ChanLength', 'Ldd', 'Channels', 'ChanGrad', 'ChanGradMin',
                                 'CalChanMan', 'ChanMan', 'ChanBottomWidth', 'ChanDepthThreshold',
                                 'ChanSdXdY', 'TotalCrossSectionAreaInitValue', 'PrevDischarge'],
-                        'SplitRouting': ['CrossSection2AreaInitValue', 'PrevSideflowInitValue', 'CalChanMan2'],
+                        'SplitRouting': ['CrossSection2AreaInitValue', 'PrevSideflowInitValue', 'CalChanMan2', 'CumQInit'], ## Carlo, the last entry is required only in specific conditions...keep here?
                         'dynamicWave': ['ChannelsDynamic']}
     module_name = 'Routing'
 
@@ -250,6 +250,8 @@ class routing(HydroModule):
         # simply 1/beta, computational efficiency!)
 
         self.var.CumQ = maskinfo.in_zero()
+        if option['InitLisflood']:
+           self.var.CumQ = loadmap('CumQInit')
         # ininialise sum of discharge to calculate average
 
 # ************************************************************
