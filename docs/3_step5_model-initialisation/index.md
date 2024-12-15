@@ -396,20 +396,19 @@ Starting with LISFLOOD v5, the computation of the initialization run in temporal
                     TimeSinceStartPrerunChunkEnd: required for the warm start of the pre-run
                 </comment>       
      </textvar>
-       
-    </group>    
+         
 
 ```
 
 Prerun(a) generates the following intermediate outputs:
 
 -End files of state variables  
--LZInflowCUM,  
--CumQ,  
--cumSeepTopToSubBForest,  
--cumSeepTopToSubBOther,  
--cumSeepTopToSubBIrrigation,  
--TimeSinceStartPrerunChunkInit.  
+-LZInflowCUMEnd,  
+-CumQEnd,  
+-cumSeepTopToSubBForestEnd,  
+-cumSeepTopToSubBOtherEnd,  
+-cumSeepTopToSubBIrrigationEnd,  
+-TimeSinceStartPrerunChunkEnd.  
 
 **Prerun(b): warm start**
 
@@ -488,15 +487,15 @@ Prerun(a) generates the following intermediate outputs:
           
 
 ```
-Prerun(b) uses the intermediate outputs of prerun(a) and generates an update of the same variables:
+Prerun(b) uses the intermediate outputs of prerun(a) and generates an update of the same end variables for the intermediate chunk (b):
 
 -End files of state variables
--LZInflowCUM,
--CumQ,
--cumSeepTopToSubBForest,
--cumSeepTopToSubBOther,
--cumSeepTopToSubBIrrigation,
--TimeSinceStartPrerunChunkInit.
+-LZInflowCUMEnd,
+-CumQEnd,
+-cumSeepTopToSubBForestEnd,
+-cumSeepTopToSubBOtherEnd,
+-cumSeepTopToSubBIrrigationEnd,
+-TimeSinceStartPrerunChunkEnd.
 
 
 **Prerun(c): warm start**
