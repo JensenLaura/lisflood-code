@@ -212,23 +212,41 @@ This tells the model to write the values of all state variables (averages, upstr
 ii) The prerun will then created a number (from 1 to 17, depending on the .xml settings) of maps NetCDF format. Copy those maps (found in folder "out", see the setting $(PathOut) above) into the folder "init" ($(PathInit))
 
 The following list enumerates the files required for the correct execution of the LISFLOOD Cold Start:
+
     lzavin.nc (striclty required)
+
     avgdis.nc (strictly required only when using SplitRouting)
+
     uz.end.nc, groundwater upper zone water content - other land cover fraction (strongly recommended)
+
     uzf.end.nc, groundwater upper zone water content - forest land cover fraction (strongly recommended)
+
     uzi.end.nc, groundwater upper zone water content - irrigation land cover fraction (strongly recommended)
+
     th1.end.nc, soil moisture - other land cover fraction - first layer (strongly recommended)
+
     th2.end.nc, soil moisture - other land cover fraction - second layer (strongly recommended)
+
     th3.end.nc, soil moisture - other land cover fraction - third layer (strongly recommended)
+
     thf1.end.nc, soil moisture - forest land cover fraction - first layer (strongly recommended)
+
     thf2.end.nc, soil moisture - forest land cover fraction - second layer (strongly recommended)
+
     thf3.end.nc, soil moisture - forest land cover fraction - third layer  (strongly recommended)
+
     thi1.end.nc, soil moisture - irrigation land cover fraction - first layer  (strongly recommended)
+
     thi2.end.nc, soil moisture - irrigation land cover fraction - second layer (strongly recommended)
+
     thi3.end.nc, soil moisture - irrigation land cover fraction - third layer (strongly recommended)
+
     SeepTopToSubBAverageOtherMap.nc, average flux from second to third soil layer - other land cover fraction (strongly recommended)
+
     SeepTopToSubBAverageForestMap.nc, average flux from second to third soil layer - forest land cover fraction  (strongly recommended)
+
     SeepTopToSubBAverageIrrigationMap.nc, average flux from second to third soil layer - irrigation land cover fraction  (strongly recommended)
+
 
 
 
