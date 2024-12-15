@@ -420,7 +420,7 @@ Prerun(a) generates the following intermediate outputs:
     **************************************************************
     TIME-RELATED CONSTANTS
     **************************************************************      
-    <textvar name="NumDaysSpinUp" value="1095">
+    <textvar name="NumDaysSpinUp" value="0">
                 <comment>
                     Number of days to be discarded when computing the average fluxes in the initialization (prerun) simulation.
                     The use of NumDaysSpinUp avoids spurious large fluxes values driven by bogus initial conditions.
