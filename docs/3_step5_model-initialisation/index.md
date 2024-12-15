@@ -325,32 +325,91 @@ Starting with LISFLOOD v5, the computation of the initialization run in temporal
 **Prerun(a): cold start**
 
 ```xml
-       <setoption choice="1" name="InitLisflood"/>
-       <setoption choice="0" name="InitLisfloodwithoutsplit"/>   OR  <setoption choice="1" name="InitLisfloodwithoutsplit"/>
-       <setoption choice="0" name="ColdStart/>
+    <setoption choice="1" name="InitLisflood"/>
+    <setoption choice="0" name="InitLisfloodwithoutsplit"/>   OR  <setoption choice="1" name="InitLisfloodwithoutsplit"/>
+    <setoption choice="0" name="ColdStart/>
 
-       **************************************************************
-       TIME-RELATED CONSTANTS
-       **************************************************************      
-       <textvar name="NumDaysSpinUp" value="1095">
-       <comment>
-       Number of days to be discarded when computing the average fluxes in the initialization (prerun) simulation.
-       The use of NumDaysSpinUp avoids spurious large fluxes values driven by bogus initial conditions.
-       Recommended value when performing the initialiaztion (prerun) in one chunk or the cold start of the initialization (prerun) >= 1095 (3 years)  
-       Value for lisflood cold run, warm start prerun/run: 0
-       </comment>
-       </textvar> 
+    **************************************************************
+    TIME-RELATED CONSTANTS
+    **************************************************************      
+    <textvar name="NumDaysSpinUp" value="1095">
+                <comment>
+                    Number of days to be discarded when computing the average fluxes in the initialization (prerun) simulation.
+                    The use of NumDaysSpinUp avoids spurious large fluxes values driven by bogus initial conditions.
+                    Recommended value when performing the initialiaztion (prerun) in one chunk or the cold start of the initialization (prerun) >= 1095 (3 years)  
+                    Value for lisflood cold run, warm start prerun/run: 0
+                </comment>
+    </textvar> 
+
+
+
+    <comment>
+    **************************************************************
+    CUMULATIVE FLUXES REQUIRED WHEN COMPUTING THE PRE-RUN IN CHUNKS
+    **************************************************************
+    </comment>
+
+    <textvar name="LZInflowCUMInit" value="0">
+                <comment>
+                    Cumulative inflow to the lower groundwater zone
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    LZInflowCumEnd: required for the warm start of the pre-run
+                </comment>
+     </textvar>   
+       
+     <textvar name="cumSeepTopToSubBOtherInit" value="0">
+                <comment>
+                    Cumulative flux from second to third soil layer, other land cover fraction
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    cumSeepTopToSubBOtherEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>
+       
+     <textvar name="cumSeepTopToSubBForestInit" value="0">
+                <comment>
+                    Cumulative flux from second to third soil layer, forest land cover fraction
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    cumSeepTopToSubBForestEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>
+       
+     <textvar name="cumSeepTopToSubBIrrigationInit" value="0">
+                <comment>
+                    Cumulative flux from second to third soil layer, irrigation land cover fraction
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    cumSeepTopToSubBIrrigationEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>
+       
+     <textvar name="CumQInit" value="0">
+                <comment>
+                    Cumulative discharge
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    CumQEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>           
+                            
+     <textvar name="TimeSinceStartPrerunChunkInit" value="0">
+                <comment>
+                    Cumulative number of days from the start of the prerun
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    TimeSinceStartPrerunChunkEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>
+       
+    </group>    
 
 ```
 
 Prerun(a) generates the following intermediate outputs:
--End files of state variables
--LZInflowCUM,
--CumQ,
--cumSeepTopToSubBForest,
--cumSeepTopToSubBOther,
--cumSeepTopToSubBIrrigation,
--TimeSinceStartPrerunChunkInit.
+
+-End files of state variables  
+-LZInflowCUM,  
+-CumQ,  
+-cumSeepTopToSubBForest,  
+-cumSeepTopToSubBOther,  
+-cumSeepTopToSubBIrrigation,  
+-TimeSinceStartPrerunChunkInit.  
 
 **Prerun(b): warm start**
 
@@ -359,20 +418,78 @@ Prerun(a) generates the following intermediate outputs:
        <setoption choice="0" name="InitLisfloodwithoutsplit"/>   OR  <setoption choice="1" name="InitLisfloodwithoutsplit"/>
        <setoption choice="0" name="ColdStart/>
 
-       **************************************************************
-       TIME-RELATED CONSTANTS
-       **************************************************************      
-       <textvar name="NumDaysSpinUp" value="0">
-       <comment>
-       Number of days to be discarded when computing the average fluxes in the initialization (prerun) simulation.
-       The use of NumDaysSpinUp avoids spurious large fluxes values driven by bogus initial conditions.
-       Recommended value when performing the initialiaztion (prerun) in one chunk or the cold start of the initialization (prerun) >= 1095 (3 years)  
-       Value for lisflood cold run, warm start prerun/run: 0
-       </comment>
-       </textvar> 
+    **************************************************************
+    TIME-RELATED CONSTANTS
+    **************************************************************      
+    <textvar name="NumDaysSpinUp" value="1095">
+                <comment>
+                    Number of days to be discarded when computing the average fluxes in the initialization (prerun) simulation.
+                    The use of NumDaysSpinUp avoids spurious large fluxes values driven by bogus initial conditions.
+                    Recommended value when performing the initialiaztion (prerun) in one chunk or the cold start of the initialization (prerun) >= 1095 (3 years)  
+                    Value for lisflood cold run, warm start prerun/run: 0
+                </comment>
+    </textvar> 
+
+
+
+    <comment>
+    **************************************************************
+    CUMULATIVE FLUXES REQUIRED WHEN COMPUTING THE PRE-RUN IN CHUNKS
+    **************************************************************
+    </comment>
+
+    <textvar name="LZInflowCUMInit" value="$(PathInit)/LZInflowCumEnd">
+                <comment>
+                    Cumulative inflow to the lower groundwater zone
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    LZInflowCumEnd: required for the warm start of the pre-run
+                </comment>
+     </textvar>   
+       
+     <textvar name="cumSeepTopToSubBOtherInit" value="$(PathInit)/cumSeepTopToSubBOtherEnd">
+                <comment>
+                    Cumulative flux from second to third soil layer, other land cover fraction
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    cumSeepTopToSubBOtherEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>
+       
+     <textvar name="cumSeepTopToSubBForestInit" value="$(PathInit)/cumSeepTopToSubBForestEnd">
+                <comment>
+                    Cumulative flux from second to third soil layer, forest land cover fraction
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    cumSeepTopToSubBForestEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>
+       
+     <textvar name="cumSeepTopToSubBIrrigationInit" value="$(PathInit)/cumSeepTopToSubBIrrigationEnd">
+                <comment>
+                    Cumulative flux from second to third soil layer, irrigation land cover fraction
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    cumSeepTopToSubBIrrigationEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>
+       
+     <textvar name="CumQInit" value="$(PathInit)/CumQEnd">
+                <comment>
+                    Cumulative discharge
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    CumQEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>           
+                            
+     <textvar name="TimeSinceStartPrerunChunkInit" value="$(PathInit)/TimeSinceStartPrerunChunkEnd">
+                <comment>
+                    Cumulative number of days from the start of the prerun
+                    0: this is appropriate for the cold start of the pre-run, the cold start of the run, the warm start of the run
+                    TimeSinceStartPrerunChunkEnd: required for the warm start of the pre-run
+                </comment>       
+     </textvar>
+          
 
 ```
 Prerun(b) uses the intermediate outputs of prerun(a) and generates an update of the same variables:
+
 -End files of state variables
 -LZInflowCUM,
 -CumQ,
@@ -406,20 +523,37 @@ Prerun(b) uses the intermediate outputs of prerun(a) and generates an update of 
 Prerun(c) uses the intermediate outputs of prerun(b) and returns the ouputs for the full initialization period (in the example above, prerun(c) reports the results for 02/01/1980 00:00 - 01/01/2025 00:00). 
 Therefore, Prerun(c) generates all the files to be used for the LISFLOOD Cold Start.
 These outputs are:
-    lzavin.nc (striclty required)
-    avgdis.nc (strictly required only when using SplitRouting)
-    uz.end.nc, groundwater upper zone water content - other land cover fraction (strongly recommended)
-    uzf.end.nc, groundwater upper zone water content - forest land cover fraction (strongly recommended)
-    uzi.end.nc, groundwater upper zone water content - irrigation land cover fraction (strongly recommended)
-    th1.end.nc, soil moisture - other land cover fraction - first layer (strongly recommended)
-    th2.end.nc, soil moisture - other land cover fraction - second layer (strongly recommended)
-    th3.end.nc, soil moisture - other land cover fraction - third layer (strongly recommended)
-    thf1.end.nc, soil moisture - forest land cover fraction - first layer (strongly recommended)
-    thf2.end.nc, soil moisture - forest land cover fraction - second layer (strongly recommended)
-    thf3.end.nc, soil moisture - forest land cover fraction - third layer  (strongly recommended)
-    thi1.end.nc, soil moisture - irrigation land cover fraction - first layer  (strongly recommended)
-    thi2.end.nc, soil moisture - irrigation land cover fraction - second layer (strongly recommended)
-    thi3.end.nc, soil moisture - irrigation land cover fraction - third layer (strongly recommended)
-    SeepTopToSubBAverageOtherMap.nc, average flux from second to third soil layer - other land cover fraction (strongly recommended)
-    SeepTopToSubBAverageForestMap.nc, average flux from second to third soil layer - forest land cover fraction  (strongly recommended)
-    SeepTopToSubBAverageIrrigationMap.nc, average flux from second to third soil layer - irrigation land cover fraction  (strongly recommended)
+
+    * lzavin.nc
+
+    * avgdis.nc 
+
+    * uz.end.nc, groundwater upper zone water content - other land cover fraction 
+
+    * uzf.end.nc, groundwater upper zone water content - forest land cover fraction 
+
+    * uzi.end.nc, groundwater upper zone water content - irrigation land cover fraction 
+
+    * th1.end.nc, soil moisture - other land cover fraction - first layer 
+
+    * th2.end.nc, soil moisture - other land cover fraction - second layer 
+
+    * th3.end.nc, soil moisture - other land cover fraction - third layer
+
+    * thf1.end.nc, soil moisture - forest land cover fraction - first layer 
+
+    * thf2.end.nc, soil moisture - forest land cover fraction - second layer 
+
+    * thf3.end.nc, soil moisture - forest land cover fraction - third layer  
+
+    * thi1.end.nc, soil moisture - irrigation land cover fraction - first layer  
+
+    * thi2.end.nc, soil moisture - irrigation land cover fraction - second layer 
+
+    * thi3.end.nc, soil moisture - irrigation land cover fraction - third layer 
+
+    * SeepTopToSubBAverageOtherMap.nc, average flux from second to third soil layer - other land cover fraction 
+
+    * SeepTopToSubBAverageForestMap.nc, average flux from second to third soil layer - forest land cover fraction  
+
+    * SeepTopToSubBAverageIrrigationMap.nc, average flux from second to third soil layer - irrigation land cover fraction  
